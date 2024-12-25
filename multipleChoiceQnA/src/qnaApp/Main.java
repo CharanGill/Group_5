@@ -17,6 +17,13 @@ public class Main {
             System.out.print("Enter Your Answer: ");
             int choice = Integer.valueOf(scanner.nextLine());
             
+            if(choice == question.getAnswer()) {
+            	System.out.println("Correct \n");
+            }
+            else if(choice != question.getAnswer()) {
+            	System.out.println("Incorrect \n");
+            	
+            }
 		}
 	}
 }

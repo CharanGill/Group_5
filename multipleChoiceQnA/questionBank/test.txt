@@ -10,7 +10,7 @@ Can this Java-program be written better?
 1) Nah
 2) Hell yes!
 2
-Who is fat?
+Whose name begins with C?
 3
 1) Craig
 2) Susan
