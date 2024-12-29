@@ -3,72 +3,53 @@ package qnaApp;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class Quiz {
-	private ArrayList<Question> questions = new ArrayList<>();
-	private int currentQuestionIndex = 0;
 
-	public void loadQuestions() {
-		try {
-			File myObj = new File("questionBank/test.txt");
-			Scanner myReader = new Scanner(myObj);
+    private ArrayList<Question> questions = new ArrayList<>();
+    private int currentQuestionIndex = 0;
 
-			while (myReader.hasNextLine()) {
-				String question;
-				ArrayList<String> options = new ArrayList<>();
-				int answer = 0;
+    public void loadQuestions() {
+        try {
+            File myObj = new File("questionBank/test.txt");
+            Scanner myReader = new Scanner(myObj);
 
-				question = myReader.nextLine();
-				int numberOfChoices = Integer.valueOf(myReader.nextLine());
+            while (myReader.hasNextLine()) {
 
-				if (numberOfChoices > 0) {
-					for (int i = 0; i < numberOfChoices; i++) {
-						options.add(myReader.nextLine());
-					}
-				}
+                int numberOfChoices = 0;
+                String question;
+                ArrayList<String> options = new ArrayList<String>();
+                int answer = 0;
 
-				answer = Integer.valueOf(myReader.nextLine());
-				questions.add(new Question(question, options, answer));
-			}
+                question = myReader.nextLine();
+                numberOfChoices = Integer.valueOf(myReader.nextLine());
 
-			myReader.close();
+                if (numberOfChoices > 0) {
+                    for (int i = 0; i < numberOfChoices; i++) {
+                        options.add(myReader.nextLine());
+                    }
+                }
 
-		} catch (FileNotFoundException e) {
-			System.out.println("No file found!");
-		}
-	}
+                answer = Integer.valueOf(myReader.nextLine());
 
-	public void shuffleQuestionsAndAnswers() {
-		Collections.shuffle(questions);
+                questions.add(new Question(question, options, answer));
+            }
 
-		for (Question question : questions) {
-			ArrayList<String> options = question.getOptions();
-			int correctAnswerIndex = question.getAnswer() - 1;
+            myReader.close();
 
-			String correctAnswer = options.get(correctAnswerIndex);
-			Collections.shuffle(options);
+        } catch (FileNotFoundException e) {
+            System.out.println("No file found!");
+        }
 
-			int newCorrectAnswerIndex = options.indexOf(correctAnswer);
-			question.setAnswer(newCorrectAnswerIndex + 1);
-		}
-	}
+    }
 
-	public void viewAllQuestions() {
-		System.out.println("List of Questions:");
-		for (int i = 0; i < questions.size(); i++) {
-			Question question = questions.get(i);
-			System.out.println("Question " + (i + 1) + ":");
-			System.out.println(question);
-		}
-	}
-
-	public Question getQuestion() {
-		if (currentQuestionIndex < questions.size()) {
-			return questions.get(currentQuestionIndex++);
-		} else {
-			return null;
-		}
-	}
+    public Question getQuestion() {
+        if (currentQuestionIndex < questions.size()) {
+            return questions.get(currentQuestionIndex++);
+        } else {
+            return null;
+        }
+    }
 }
+
