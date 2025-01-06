@@ -1,0 +1,27 @@
+What is 2 + 2?
+4
+1) 1
+2) 2
+3) 3
+4) 4
+4
+Which of the following is the value of pie?
+4
+1) 3.14
+2) 2.41
+3) 3.41
+4) 2.14
+1
+Is math fun?
+2
+1) yes!
+2) no!
+
+2
+What is 10 - 4?
+4
+1) 6
+2) 4
+3) -6
+4) 14
+1
