@@ -7,12 +7,13 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Quiz {
+
 	private ArrayList<Question> questions = new ArrayList<>();
 	private int currentQuestionIndex = 0;
 
-	public void loadQuestions() {
+	public void loadQuestions(String topic) {
 		try {
-			File myObj = new File("questionBank/test.txt");
+			File myObj = new File("questionBank/" + topic + ".txt");
 			Scanner myReader = new Scanner(myObj);
 
 			while (myReader.hasNextLine()) {
@@ -36,9 +37,13 @@ public class Quiz {
 			myReader.close();
 
 		} catch (FileNotFoundException e) {
-			System.out.println("No file found!");
+			System.out.println("No file found for topic: " + topic);
 		}
 	}
+
+  public void resetQuiz() {
+        currentQuestionIndex = 0;
+    }
 
 	public void shuffleQuestionsAndAnswers() {
 		Collections.shuffle(questions);
