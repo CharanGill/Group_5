@@ -2,6 +2,8 @@ package qnaApp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -10,6 +12,8 @@ public class Quiz {
 
 	private ArrayList<Question> questions = new ArrayList<>();
 	private int currentQuestionIndex = 0;
+	private int correctAnswers = 0;
+	private int totalQuestions = 0;
 
 	public void loadQuestions(String topic) {
 		try {
@@ -33,7 +37,7 @@ public class Quiz {
 				answer = Integer.valueOf(myReader.nextLine());
 				questions.add(new Question(question, options, answer));
 			}
-
+			totalQuestions = questions.size();
 			myReader.close();
 
 		} catch (FileNotFoundException e) {
@@ -41,8 +45,8 @@ public class Quiz {
 		}
 	}
 
-  public void resetQuiz() {
-        currentQuestionIndex = 0;
+	public void resetQuiz() {
+		currentQuestionIndex = 0;
     }
 
 	public void shuffleQuestionsAndAnswers() {
@@ -75,5 +79,37 @@ public class Quiz {
 		} else {
 			return null;
 		}
+	}
+	
+	public void quizResult(boolean isCorrect){
+
+		//compares input with test.txt, if correct, grants 1 point
+		if (isCorrect){
+			correctAnswers++;
+		}
+	}
+	
+	public void saveQuizResult(){
+
+		//saves the result and output it in a result.txt
+		try (FileWriter writer = new FileWriter("result.txt")) {
+
+            writer.write("Quiz Completed!\n");
+            writer.write("Final Score: " + correctAnswers + " out of " + totalQuestions + "\n");
+            System.out.println("Result saved to result.txt");
+
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving the result: " + e.getMessage());
+        }
+	}
+	
+	public void displayQuizResult(){
+
+		System.out.println("Quiz Completed!");
+        System.out.println("Final Score: " + correctAnswers + " out of " + totalQuestions);
+
+        // Save the result into a file
+        saveQuizResult();
+
 	}
 }
