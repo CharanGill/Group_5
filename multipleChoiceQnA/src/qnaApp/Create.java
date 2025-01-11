@@ -61,7 +61,7 @@ public class Create {
 				int correctAnswer;
 				
 				while (true) {
-					System.out.print("Enter the correct answer (1 - " + numOfAnswers + "):");
+					System.out.print("Enter the correct answer (1 - " + numOfAnswers + "): ");
 					
 					try {
 						correctAnswer = Integer.valueOf(scanner.nextLine());

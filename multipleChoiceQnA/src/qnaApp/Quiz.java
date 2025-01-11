@@ -15,6 +15,13 @@ public class Quiz {
 	private int correctAnswers = 0;
 	private int totalQuestions = 0;
 
+	
+	
+	public ArrayList<Question> getQuestions() {
+		return questions;
+	}
+
+
 	public void loadQuestions(String topic) {
 		try {
 			File myObj = new File("questionBank/" + topic + ".txt");
