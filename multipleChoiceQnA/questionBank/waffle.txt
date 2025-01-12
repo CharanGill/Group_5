@@ -1,6 +1,13 @@
-what is 3 + 5?
+What is the capital city of the UK?
+4
+Leicester
+Birmingham
+London
+Manchester
 3
+What is the colour of the sky?
+3
+blue
+purple
+orange
 1
-2
-8
-3

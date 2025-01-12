@@ -48,7 +48,7 @@ public class Main {
 			quiz.shuffleQuestionsAndAnswers();
 		
 			// If you want to view all questions at once rather than one at a time
-			//quiz.viewAllQuestions();
+			quiz.viewAllQuestions();
 
 			while(true) {
 				System.out.println("\nStarting the Quiz...");

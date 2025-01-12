@@ -15,7 +15,7 @@ public class Create {
 		
 		try {
 			System.out.print("Enter the name of your quiz: ");
-			String quizName = scanner.nextLine();
+			String quizName = scanner.nextLine().trim();
 			
 			if(quizName.isEmpty()) {
 				throw new IllegalArgumentException("Quiz must have a name!");
