@@ -7,6 +7,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.junit.Test;
 
@@ -36,7 +38,7 @@ public class Specification {
 	public void testQuestionOptionsExist() {
 		Quiz quiz = new Quiz();
 		quiz.loadQuestions("test");
-		for (Question question : quiz.getQuestions()) {  // Iterate over all questions in the quiz.
+		for (Question question : quiz.getQuestions()) {  
 	        assertFalse(question.getOptions().isEmpty());
 	    }
 	}
@@ -77,6 +79,24 @@ public class Specification {
 		app.attemptQuiz();
 		assertTrue(outputStream.toString().contains("Closing application!"));
 	}
+	
+	@Test
+	public void testAttemptExitingProgram() {
+		
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		
+		String userInput = 	"exit\n";
+						
+		System.setIn(new ByteArrayInputStream(userInput.getBytes()));
+		
+        PrintStream printStream = new PrintStream(outputStream);
+        System.setOut(printStream);
+        
+		Main app = new Main();
+		app.run();
+		assertTrue(outputStream.toString().contains("Exiting the program."));
+	}
+	
 	
 	@Test
 	public void testViewAllQuestions() {
@@ -156,17 +176,74 @@ public class Specification {
 	
 	@Test
     public void testTimerExpiresAfterTimeLimit() throws InterruptedException {
-        int timeLimit = 2; // 2 seconds
+        int timeLimit = 2; 
         Timer timer = new Timer(timeLimit);
 
         Thread timerThread = new Thread(timer);
         timerThread.start();
-
-        // Wait slightly longer than the time limit to ensure the timer expires
+       
         Thread.sleep((timeLimit + 1) * 1000);
 
-        // Assert that the timer has expired
         assertTrue(timer.isTimeUp());
     }
 	
+	@Test
+	public void testSavedQuizResults() throws Exception{
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		
+		String userInput = 	"testingQuiz\n" +
+							"1\n" +
+							"no";
+		
+		System.setIn(new ByteArrayInputStream(userInput.getBytes()));
+		
+        PrintStream printStream = new PrintStream(outputStream);
+        System.setOut(printStream);
+        
+		Main app = new Main();
+		app.attemptQuiz();
+		
+		String filePath = "result.txt";
+		String fileContent = new String(Files.readAllBytes(Paths.get(filePath))).trim();
+		String expectedString = "Quiz Completed!\n"
+				+ "Final Score: 0 out of 1";
+		
+		assertEquals(expectedString, fileContent);
+		// This can fail due to the chance of the question input being correct due to the shuffle method.
+		
+	}
+	
+	@Test
+	public void testDisplayQuizResults() {
+		// This will be testing the output to terminal rather than to the file
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		
+		String userInput = 	"testingQuiz\n" +
+							"1\n" +
+							"no";
+		
+		System.setIn(new ByteArrayInputStream(userInput.getBytes()));
+		
+        PrintStream printStream = new PrintStream(outputStream);
+        System.setOut(printStream);
+        
+		Main app = new Main();
+		app.attemptQuiz();
+				
+		assertTrue(outputStream.toString().contains("Quiz Completed!\n"
+				+ "Final Score: 0 out of 1"));
+	}
+	
+	@Test
+	public void testShuffleQuestionsAndAnswers() {
+		
+		Quiz nonShuffledQuiz = new Quiz();
+		nonShuffledQuiz.loadQuestions("basicQuiz");
+		
+		Quiz shuffledQuiz = new Quiz();
+		shuffledQuiz.loadQuestions("basicQuiz");
+		shuffledQuiz.shuffleQuestionsAndAnswers();
+		assertNotEquals(nonShuffledQuiz, shuffledQuiz);
+		
+	}
 }

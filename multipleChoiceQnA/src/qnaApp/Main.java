@@ -100,6 +100,7 @@ public class Main {
 				String retryChoice = scanner.nextLine();
             
 				if (retryChoice.equalsIgnoreCase("y")) {
+					System.out.println("Restarting Quiz...");
 					quiz.resetQuiz();
 				}	 
 				else {

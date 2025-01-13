@@ -20,7 +20,8 @@ public class Quiz {
 	public ArrayList<Question> getQuestions() {
 		return questions;
 	}
-
+	
+	
 
 	public void loadQuestions(String topic) {
 		try {
