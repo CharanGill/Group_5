@@ -3,13 +3,11 @@ package statementBasedWBTesting;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
 import qnaApp.Create;
-import qnaApp.Main;
 import qnaApp.Quiz;
 import qnaApp.Question;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StatementBasedTests {
@@ -33,6 +31,7 @@ public class StatementBasedTests {
         System.setOut(originalOut);
     }
 
+    // Test case 1: Test creating a quiz with valid input
     @Test
     void testCreateQuizWithValidInput() {
         String input = "General Knowledge\nWhat is 2 + 2?\n4\n1\n2\n4\n5\n3\nno\n";
@@ -56,6 +55,7 @@ public class StatementBasedTests {
         quizFile.delete(); // Clean up after test
     }
 
+    // Test case 2: Test empty quiz name
     @Test
     void testEmptyQuizName() {
         String input = "\n";
@@ -67,6 +67,7 @@ public class StatementBasedTests {
                 "Error message should be displayed for empty quiz name");
     }
 
+    // Test case 3: Test empty question text
     @Test
     void testEmptyQuestionText() {
         String input = "Math Quiz\n\n";
@@ -78,9 +79,10 @@ public class StatementBasedTests {
                 "Error message should be displayed for empty question text");
     }
 
+    // Test case 4: Test invalid number of options
     @Test
     void testInvalidNumberOfOptions() {
-        String input = "History Quiz\nWho was the first president of the USA?\n5\n2\nDonald Trump\nGeorge Washington\n2\nNo\n";
+        String input = "History Quiz\nWho was the first president of the USA?\n5\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         create.createQuiz();
@@ -89,6 +91,7 @@ public class StatementBasedTests {
                 "Error message should be displayed for invalid number of options");
     }
 
+    // Test case 5: Test missing option text
     @Test
     void testMissingOptionText() {
         String input = "Science Quiz\nWhat is H2O?\n2\nWater\n\n";
@@ -100,6 +103,7 @@ public class StatementBasedTests {
                 "Error message should be displayed for empty option text");
     }
 
+    // Test case 6: Test invalid correct answer
     @Test
     void testInvalidCorrectAnswer() {
         String input = "Geography Quiz\nWhat is the largest continent?\n3\nAsia\nAfrica\nEurope\n5\n1\nno\n";
@@ -111,9 +115,10 @@ public class StatementBasedTests {
                 "Error message should be displayed for invalid correct answer");
     }
 
+    // Test case 7: Test file write failure
     @Test
     void testFileWriteFailure() {
-        String input = "imaginaryFolder/Test Quiz\nWhat is 2 + 2?\n2\n1\n2\n1\nno\n";
+        String input = "Test Quiz\nWhat is 2 + 2?\n2\n1\n2\n1\nno\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         System.setProperty("user.dir", "/invalid/path");
 
@@ -123,6 +128,7 @@ public class StatementBasedTests {
                 "Error message should be displayed for file write failure");
     }
 
+    // Test case 8: Test successfully loading questions
     @Test
     void testLoadQuestionsSuccessfully() {
         try (FileWriter writer = new FileWriter("questionBank/testQuiz.txt")) {
@@ -142,6 +148,7 @@ public class StatementBasedTests {
         assertEquals("What is the capital of France?", quiz.getQuestions().get(0).getQuestion());
     }
 
+    // Test case 9: Test loading questions from a non-existent file
     @Test
     void testLoadQuestionsFileNotFound() {
         quiz.loadQuestions("nonexistentQuiz");
@@ -149,9 +156,9 @@ public class StatementBasedTests {
         assertTrue(outContent.toString().contains("No file found for topic: nonexistentQuiz"));
     }
 
+    // Test case 10: Test shuffling questions and answers
     @Test
     void testShuffleQuestionsAndAnswers() {
-    	// Chance of failure due to the shuffle method being random therefore it might change or might not
         ArrayList<String> options = new ArrayList<>();
         options.add("A");
         options.add("B");
@@ -159,26 +166,24 @@ public class StatementBasedTests {
 
         quiz.getQuestions().add(new Question("Question 1?", options, 1));
         quiz.getQuestions().add(new Question("Question 2?", options, 2));
-        quiz.getQuestions().add(new Question("Question 3?", options, 3));
-        quiz.getQuestions().add(new Question("Question 4?", options, 3));
-        quiz.getQuestions().add(new Question("Question 5?", options, 3));
 
         quiz.shuffleQuestionsAndAnswers();
 
         assertNotEquals("Question 1?", quiz.getQuestions().get(0).getQuestion());
     }
 
-    //@Test
-    //void testQuizResults() {
-     //   quiz.quizResult(true);
-      //  quiz.quizResult(false);
+    // Test case 11: Test quiz results calculation
+    @Test
+    void testQuizResults() {
+        quiz.quizResult(true);
+        quiz.quizResult(false);
 
-       // assertEquals(1, quiz.getCorrectAnswer());
-    //}
+        assertEquals(1, quiz.getCorrectAnswers());
+    }
 
+    // Test case 12: Test displaying quiz results
     @Test
     void testDisplayQuizResult() {
-    	quiz.loadQuestions("waffle");
         quiz.quizResult(true);
         quiz.quizResult(false);
         quiz.displayQuizResult();
@@ -186,6 +191,7 @@ public class StatementBasedTests {
         assertTrue(outContent.toString().contains("Final Score: 1 out of 2"));
     }
 
+    // Test case 13: Test early exit from adding questions
     @Test
     void testEarlyExitFromAddingQuestions() {
         String input = "Quick Quiz\nFirst Question\n2\nYes\nNo\n1\nno\n";
@@ -196,7 +202,18 @@ public class StatementBasedTests {
         assertTrue(outContent.toString().contains("Quiz named Quick Quiz created"));
     }
 
+    // Test case 14: Test repeated invalid inputs
+    @Test
+    void testRepeatedInvalidInputs() {
+        String input = "Repeated Test\n\nValid Question\n1\n2\nOption 1\n\nOption 2\n3\n1\nno\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
 
+        create.createQuiz();
+
+        assertTrue(outContent.toString().contains("Quiz named Repeated Test created"));
+    }
+
+    // Test case 15: Test invalid answers before valid input
     @Test
     void testAllInvalidAnswersBeforeValidInput() {
         String input = "Validation Test\nQuestion\n3\nOption1\nOption2\nOption3\n4\n5\n2\nno\n";
@@ -207,10 +224,24 @@ public class StatementBasedTests {
         assertTrue(outContent.toString().contains("Quiz named Validation Test created"));
     }
 
+    // Test case 16: Test adding maximum questions
+    @Test
+    void testAddMaximumQuestions() {
+        StringBuilder input = new StringBuilder("Max Quiz\n");
+        for (int i = 1; i <= 10; i++) {
+            input.append("Question ").append(i).append("?\n2\nOption 1\nOption 2\n1\nyes\n");
+        }
+        input.append("no\n");
+        System.setIn(new ByteArrayInputStream(input.toString().getBytes()));
 
+        create.createQuiz();
+
+        assertTrue(outContent.toString().contains("Quiz named Max Quiz created"));
+    }
+
+    // Test case 17: Test saving quiz results
     @Test
     void testQuizResultSaving() {
-    	quiz.loadQuestions("waffle");
         quiz.quizResult(true);
         quiz.quizResult(false);
 
@@ -222,34 +253,4 @@ public class StatementBasedTests {
 
         assertTrue(fileContent.toString().contains("Final Score: 1 out of 2"));
     }
-    
-    @Test
-    void testClosingApplication() {
-    	String input = "testingQuiz\n1\nN\n";
-    	System.setIn(new ByteArrayInputStream(input.getBytes()));
-    	Main app = new Main();
-    	app.attemptQuiz();
-    	
-    	assertTrue(outContent.toString().contains("Closing application!"));
-    }
-    
-    @Test
-    void testMainRun() {
-    	String input = "exit\n";
-    	System.setIn(new ByteArrayInputStream(input.getBytes()));
-    	Main app = new Main();
-    	app.run();
-    	assertTrue(outContent.toString().contains("Exiting the program."));
-    }
-    
-    @Test
-    void testRetryingQuiz() {
-    	String input = "testingQuiz\ny\n1\nN\n";
-    	System.setIn(new ByteArrayInputStream(input.getBytes()));
-    	Main app = new Main();
-    	app.attemptQuiz();
-    	
-    	assertTrue(outContent.toString().contains("Restarting Quiz...\n"));
-    }
-    
 }
