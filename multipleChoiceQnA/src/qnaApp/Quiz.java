@@ -21,6 +21,10 @@ public class Quiz {
 		return questions;
 	}
 	
+	public void setCorrectAnswers(int correctAnswers) {
+		this.correctAnswers = correctAnswers;
+	}
+	
 	
 
 	public void loadQuestions(String topic) {

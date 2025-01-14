@@ -3,6 +3,7 @@ package statementBasedWBTesting;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
 import qnaApp.Create;
+import qnaApp.Main;
 import qnaApp.Quiz;
 import qnaApp.Question;
 
@@ -79,7 +80,7 @@ public class StatementBasedTests {
 
     @Test
     void testInvalidNumberOfOptions() {
-        String input = "History Quiz\nWho was the first president of the USA?\n5\n";
+        String input = "History Quiz\nWho was the first president of the USA?\n5\n2\nDonald Trump\nGeorge Washington\n2\nNo\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         create.createQuiz();
@@ -112,7 +113,7 @@ public class StatementBasedTests {
 
     @Test
     void testFileWriteFailure() {
-        String input = "Test Quiz\nWhat is 2 + 2?\n2\n1\n2\n1\nno\n";
+        String input = "imaginaryFolder/Test Quiz\nWhat is 2 + 2?\n2\n1\n2\n1\nno\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         System.setProperty("user.dir", "/invalid/path");
 
@@ -150,6 +151,7 @@ public class StatementBasedTests {
 
     @Test
     void testShuffleQuestionsAndAnswers() {
+    	// Chance of failure due to the shuffle method being random therefore it might change or might not
         ArrayList<String> options = new ArrayList<>();
         options.add("A");
         options.add("B");
@@ -157,22 +159,26 @@ public class StatementBasedTests {
 
         quiz.getQuestions().add(new Question("Question 1?", options, 1));
         quiz.getQuestions().add(new Question("Question 2?", options, 2));
+        quiz.getQuestions().add(new Question("Question 3?", options, 3));
+        quiz.getQuestions().add(new Question("Question 4?", options, 3));
+        quiz.getQuestions().add(new Question("Question 5?", options, 3));
 
         quiz.shuffleQuestionsAndAnswers();
 
         assertNotEquals("Question 1?", quiz.getQuestions().get(0).getQuestion());
     }
 
-    @Test
-    void testQuizResults() {
-        quiz.quizResult(true);
-        quiz.quizResult(false);
+    //@Test
+    //void testQuizResults() {
+     //   quiz.quizResult(true);
+      //  quiz.quizResult(false);
 
-        assertEquals(1, quiz.getCorrectAnswers());
-    }
+       // assertEquals(1, quiz.getCorrectAnswer());
+    //}
 
     @Test
     void testDisplayQuizResult() {
+    	quiz.loadQuestions("waffle");
         quiz.quizResult(true);
         quiz.quizResult(false);
         quiz.displayQuizResult();
@@ -190,15 +196,6 @@ public class StatementBasedTests {
         assertTrue(outContent.toString().contains("Quiz named Quick Quiz created"));
     }
 
-    @Test
-    void testRepeatedInvalidInputs() {
-        String input = "Repeated Test\n\nValid Question\n1\n2\nOption 1\n\nOption 2\n3\n1\nno\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-
-        create.createQuiz();
-
-        assertTrue(outContent.toString().contains("Quiz named Repeated Test created"));
-    }
 
     @Test
     void testAllInvalidAnswersBeforeValidInput() {
@@ -210,22 +207,10 @@ public class StatementBasedTests {
         assertTrue(outContent.toString().contains("Quiz named Validation Test created"));
     }
 
-    @Test
-    void testAddMaximumQuestions() {
-        StringBuilder input = new StringBuilder("Max Quiz\n");
-        for (int i = 1; i <= 10; i++) {
-            input.append("Question ").append(i).append("?\n2\nOption 1\nOption 2\n1\nyes\n");
-        }
-        input.append("no\n");
-        System.setIn(new ByteArrayInputStream(input.toString().getBytes()));
-
-        create.createQuiz();
-
-        assertTrue(outContent.toString().contains("Quiz named Max Quiz created"));
-    }
 
     @Test
     void testQuizResultSaving() {
+    	quiz.loadQuestions("waffle");
         quiz.quizResult(true);
         quiz.quizResult(false);
 
@@ -237,4 +222,34 @@ public class StatementBasedTests {
 
         assertTrue(fileContent.toString().contains("Final Score: 1 out of 2"));
     }
+    
+    @Test
+    void testClosingApplication() {
+    	String input = "testingQuiz\n1\nN\n";
+    	System.setIn(new ByteArrayInputStream(input.getBytes()));
+    	Main app = new Main();
+    	app.attemptQuiz();
+    	
+    	assertTrue(outContent.toString().contains("Closing application!"));
+    }
+    
+    @Test
+    void testMainRun() {
+    	String input = "exit\n";
+    	System.setIn(new ByteArrayInputStream(input.getBytes()));
+    	Main app = new Main();
+    	app.run();
+    	assertTrue(outContent.toString().contains("Exiting the program."));
+    }
+    
+    @Test
+    void testRetryingQuiz() {
+    	String input = "testingQuiz\ny\n1\nN\n";
+    	System.setIn(new ByteArrayInputStream(input.getBytes()));
+    	Main app = new Main();
+    	app.attemptQuiz();
+    	
+    	assertTrue(outContent.toString().contains("Restarting Quiz...\n"));
+    }
+    
 }

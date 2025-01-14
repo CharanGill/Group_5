@@ -73,7 +73,7 @@ public class Create {
 					}catch(NumberFormatException e) {
 						System.out.println("Input must be of integer type!");
 					}
-					System.out.println("Choose a number from the prvoided options!");
+					System.out.println("Choose a number from the provided options!");
 					
 				}
 				

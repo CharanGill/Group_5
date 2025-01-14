@@ -56,7 +56,7 @@ public class Main {
 			
 				while ((question = quiz.getQuestion()) != null) {
 	            
-					Timer timer = new Timer(10); // 10-second time limit for each question
+					Timer timer = new Timer(1); // 10-second time limit for each question
 					Thread timerThread = new Thread(timer);
 					timerThread.start(); // Start the timer
 	            
@@ -77,6 +77,7 @@ public class Main {
 							}
 						} catch (IOException e) {
 							System.out.println("An error occurred while checking for input: " + e.getMessage());
+						
 						} catch (NumberFormatException e) {
 							System.out.println("Invalid input. Please enter a number.");
 						}
@@ -98,9 +99,10 @@ public class Main {
 				quiz.displayQuizResult();
 				System.out.print("Would you like to retry the quiz? (Y/N): ");
 				String retryChoice = scanner.nextLine();
-            
+				
 				if (retryChoice.equalsIgnoreCase("y")) {
 					System.out.println("Restarting Quiz...");
+					quiz.setCorrectAnswers(0);
 					quiz.resetQuiz();
 				}	 
 				else {
