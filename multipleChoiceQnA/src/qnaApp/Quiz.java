@@ -124,4 +124,18 @@ public class Quiz {
         saveQuizResult();
 
 	}
+
+	public Integer getCurrentQuestionIndex() {
+		return currentQuestionIndex;
+	}
+
+	public void setQuestions(ArrayList<Question> questions) {
+		this.questions = questions;
+	}
+
+	public int getCorrectAnswers() {
+		return correctAnswers;
+	}
+	
+	
 }

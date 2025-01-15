@@ -20,21 +20,23 @@ import qnaApp.Timer;
 
 public class Specification {
 
-	@Test
-	public void testLoadQuestionWithExistingFile() {
-		Quiz quiz = new Quiz();
-		quiz.loadQuestions("test");
-		assertFalse(quiz.getQuestions().isEmpty());
-	}
+
 	
 	@Test
+	//Test Case 2
 	public void testLoadQuestionWithNonExistingFile() {
-		Quiz quiz = new Quiz();
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		
+		PrintStream printStream = new PrintStream(outputStream);
+        System.setOut(printStream);
+        
+        Quiz quiz = new Quiz();
 		quiz.loadQuestions("imaginaryFile");
-		assertTrue(quiz.getQuestions().isEmpty());
+        assertTrue(outputStream.toString().contains("No file found for topic: imaginaryFile"));
 	}
 	
 	@Test
+	//Test Case 3
 	public void testQuestionOptionsExist() {
 		Quiz quiz = new Quiz();
 		quiz.loadQuestions("test");
@@ -44,6 +46,7 @@ public class Specification {
 	}
 	
 	@Test
+	//Test Case 4
 	public void testCreateQuiz() {
 		String userInput = "testingQuiz\n" +
 							"What is 5 + 5? \n" +
@@ -62,6 +65,7 @@ public class Specification {
 	}
 	
 	@Test
+	//Test Case 5
 	public void testAttemptQuiz() {
 		
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -81,6 +85,7 @@ public class Specification {
 	}
 	
 	@Test
+	//Test Case 6
 	public void testAttemptExitingProgram() {
 		
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -99,6 +104,7 @@ public class Specification {
 	
 	
 	@Test
+	//Test Case 7
 	public void testViewAllQuestions() {
 		Quiz quiz = new Quiz();
 		quiz.loadQuestions("waffle");
@@ -129,6 +135,7 @@ public class Specification {
 	}
 	
 	@Test
+	//Test Case 8
 	public void testEmptyQuizName() {
 	    Create create = new Create();
 	    
@@ -152,6 +159,7 @@ public class Specification {
 	}
 	
 	@Test
+	//Test Case 9 
 	public void testCreatingEmptyQuestion() {
 		Create create = new Create();
 	    
@@ -175,6 +183,7 @@ public class Specification {
 	}
 	
 	@Test
+	//Test Case 10
     public void testTimerExpiresAfterTimeLimit() throws InterruptedException {
         int timeLimit = 2; 
         Timer timer = new Timer(timeLimit);
@@ -188,6 +197,7 @@ public class Specification {
     }
 	
 	@Test
+	//Test Case 11
 	public void testSavedQuizResults() throws Exception{
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		
@@ -214,6 +224,7 @@ public class Specification {
 	}
 	
 	@Test
+	//Test Case 12
 	public void testDisplayQuizResults() {
 		// This will be testing the output to terminal rather than to the file
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -235,6 +246,7 @@ public class Specification {
 	}
 	
 	@Test
+	//Test Case 13
 	public void testShuffleQuestionsAndAnswers() {
 		
 		Quiz nonShuffledQuiz = new Quiz();

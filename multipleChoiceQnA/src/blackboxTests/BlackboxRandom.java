@@ -1,7 +1,12 @@
-package test;
+package blackboxTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+
+import qnaApp.Create;
+import qnaApp.Question;
+import qnaApp.Quiz;
+
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.File;
@@ -10,7 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuizAppTest {
+public class BlackboxRandom {
 
     private Quiz quiz;
     private ArrayList<Question> sampleQuestions;
@@ -54,16 +59,7 @@ public class QuizAppTest {
         assertEquals(0, quiz.getQuestions().size());
     }
 
-    @Test
-    public void testShuffleQuestionsAndAnswers() {
-        quiz.setQuestions(new ArrayList<>(sampleQuestions));
-        quiz.shuffleQuestionsAndAnswers();
-
-        for (Question question : quiz.getQuestions()) {
-            assertTrue(question.getOptions().containsAll(List.of("3", "4", "5", "6")) || question.getOptions().containsAll(List.of("Berlin", "Paris", "Rome", "Madrid")));
-        }
-    }
-
+  
     @Test
     public void testQuizResultCorrectAnswers() {
         quiz.setQuestions(new ArrayList<>(sampleQuestions));
@@ -86,16 +82,6 @@ public class QuizAppTest {
         assertEquals(0, quiz.getCurrentQuestionIndex());
     }
 
-    @Test
-    public void testCreateQuiz() throws IOException {
-        Create create = new Create();
-        create.createQuiz();
-
-        File quizFile = new File("questionBank/debug.txt");
-        assertTrue(quizFile.exists());
-
-        quizFile.delete();
-    }
 
     @Test
     public void testQuizSaveResult() {
