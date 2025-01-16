@@ -1,4 +1,4 @@
-package blackboxTests;
+package test.blackbox;
 
 import static org.junit.Assert.*;
 
@@ -20,10 +20,9 @@ import qnaApp.Timer;
 
 public class Specification {
 
-
 	
+	//Specification black-box testing
 	@Test
-	//Test Case 2
 	public void testLoadQuestionWithNonExistingFile() {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		
@@ -35,8 +34,8 @@ public class Specification {
         assertTrue(outputStream.toString().contains("No file found for topic: imaginaryFile"));
 	}
 	
+	//Specification black-box testing
 	@Test
-	//Test Case 3
 	public void testQuestionOptionsExist() {
 		Quiz quiz = new Quiz();
 		quiz.loadQuestions("test");
@@ -45,8 +44,8 @@ public class Specification {
 	    }
 	}
 	
+	//Specification black-box testing
 	@Test
-	//Test Case 4
 	public void testCreateQuiz() {
 		String userInput = "testingQuiz\n" +
 							"What is 5 + 5? \n" +
@@ -62,10 +61,11 @@ public class Specification {
 	    
 	    File file = new File("questionBank/testingQuiz.txt");
 	    assertTrue(file.exists());
+	    file.delete();
 	}
 	
+	//Specification black-box testing
 	@Test
-	//Test Case 5
 	public void testAttemptQuiz() {
 		
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -84,8 +84,8 @@ public class Specification {
 		assertTrue(outputStream.toString().contains("Closing application!"));
 	}
 	
+	//Specification black-box testing
 	@Test
-	//Test Case 6
 	public void testAttemptExitingProgram() {
 		
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -103,8 +103,8 @@ public class Specification {
 	}
 	
 	
+	//Specification black-box testing
 	@Test
-	//Test Case 7
 	public void testViewAllQuestions() {
 		Quiz quiz = new Quiz();
 		quiz.loadQuestions("waffle");
@@ -134,8 +134,8 @@ public class Specification {
 		assertEquals(outputStream.toString(), expectedOutput);	
 	}
 	
+	//Specification black-box testing
 	@Test
-	//Test Case 8
 	public void testEmptyQuizName() {
 	    Create create = new Create();
 	    
@@ -158,8 +158,8 @@ public class Specification {
 	    }
 	}
 	
+	//Specification black-box testing
 	@Test
-	//Test Case 9 
 	public void testCreatingEmptyQuestion() {
 		Create create = new Create();
 	    
@@ -182,8 +182,8 @@ public class Specification {
 	    }
 	}
 	
+	//Specification black-box testing
 	@Test
-	//Test Case 10
     public void testTimerExpiresAfterTimeLimit() throws InterruptedException {
         int timeLimit = 2; 
         Timer timer = new Timer(timeLimit);
@@ -196,8 +196,8 @@ public class Specification {
         assertTrue(timer.isTimeUp());
     }
 	
+	//Specification black-box testing
 	@Test
-	//Test Case 11
 	public void testSavedQuizResults() throws Exception{
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		
@@ -223,8 +223,8 @@ public class Specification {
 		
 	}
 	
+	//Specification black-box testing
 	@Test
-	//Test Case 12
 	public void testDisplayQuizResults() {
 		// This will be testing the output to terminal rather than to the file
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -245,8 +245,8 @@ public class Specification {
 				+ "Final Score: 0 out of 1"));
 	}
 	
+	//Specification black-box testing
 	@Test
-	//Test Case 13
 	public void testShuffleQuestionsAndAnswers() {
 		
 		Quiz nonShuffledQuiz = new Quiz();
@@ -258,4 +258,6 @@ public class Specification {
 		assertNotEquals(nonShuffledQuiz, shuffledQuiz);
 		
 	}
+	
+	
 }

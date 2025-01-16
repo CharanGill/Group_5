@@ -31,14 +31,14 @@ public class Main {
 					break;
 				}
 			}
-		
+			
 		}
 		
 		
 		public void attemptQuiz() {
 			
 			Scanner scanner = new Scanner(System.in);
-			System.out.print("Enter a quiz topic (e.g., 'test', 'math'): ");
+			System.out.print("Enter a quiz topic (e.g., 'test', 'basicQuiz'): ");
 			String topic = scanner.nextLine();
 		
 			Quiz quiz = new Quiz();
@@ -48,7 +48,8 @@ public class Main {
 			quiz.shuffleQuestionsAndAnswers();
 		
 			// If you want to view all questions at once rather than one at a time
-			quiz.viewAllQuestions();
+			// disabled for now.
+			// quiz.viewAllQuestions();
 
 			while(true) {
 				System.out.println("\nStarting the Quiz...");
@@ -56,7 +57,7 @@ public class Main {
 			
 				while ((question = quiz.getQuestion()) != null) {
 	            
-					Timer timer = new Timer(1); // 10-second time limit for each question
+					Timer timer = new Timer(10); // 10-second time limit for each question
 					Thread timerThread = new Thread(timer);
 					timerThread.start(); // Start the timer
 	            
@@ -83,7 +84,6 @@ public class Main {
 						}
 					}	 
 	            
-					// int choice = Integer.parseInt(scanner.nextLine());
 
 					if (choice == question.getAnswer()) {
 						System.out.println("Correct \n");

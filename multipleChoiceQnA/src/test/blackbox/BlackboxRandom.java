@@ -1,4 +1,4 @@
-package blackboxTests;
+package test.blackbox;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -28,6 +28,7 @@ public class BlackboxRandom {
         sampleQuestions.add(new Question("What is the capital of France?", new ArrayList<>(List.of("Berlin", "Paris", "Rome", "Madrid")), 2));
     }
 
+    //random based black-box tests
     @Test
     public void testQuestionCreation() {
         Question question = new Question("What is Java?", new ArrayList<>(List.of("Programming Language", "Coffee", "Car Brand")), 1);
@@ -36,6 +37,7 @@ public class BlackboxRandom {
         assertEquals(1, question.getAnswer());
     }
 
+    //random based black-box tests
     @Test
     public void testQuizLoadQuestions_validFile() throws IOException {
         File testFile = new File("questionBank/test.txt");
@@ -53,13 +55,14 @@ public class BlackboxRandom {
         testFile.delete();
     }
 
+    //random based black-box tests
     @Test
     public void testQuizLoadQuestions_invalidFile() {
         quiz.loadQuestions("non_existent_file");
         assertEquals(0, quiz.getQuestions().size());
     }
 
-  
+    //random based black-box tests  
     @Test
     public void testQuizResultCorrectAnswers() {
         quiz.setQuestions(new ArrayList<>(sampleQuestions));
@@ -67,6 +70,7 @@ public class BlackboxRandom {
         assertEquals(1, quiz.getCorrectAnswers());
     }
 
+    //random based black-box tests
     @Test
     public void testQuizResultIncorrectAnswers() {
         quiz.setQuestions(new ArrayList<>(sampleQuestions));
@@ -74,6 +78,7 @@ public class BlackboxRandom {
         assertEquals(0, quiz.getCorrectAnswers());
     }
 
+    //random based black-box tests
     @Test
     public void testQuizReset() {
         quiz.setQuestions(new ArrayList<>(sampleQuestions));
@@ -83,6 +88,7 @@ public class BlackboxRandom {
     }
 
 
+    //random based black-box tests
     @Test
     public void testQuizSaveResult() {
         quiz.setQuestions(new ArrayList<>(sampleQuestions));

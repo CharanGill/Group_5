@@ -25,6 +25,18 @@ public class Quiz {
 		this.correctAnswers = correctAnswers;
 	}
 	
+	public Integer getCurrentQuestionIndex() {
+		return currentQuestionIndex;
+	}
+
+	public void setQuestions(ArrayList<Question> questions) {
+		this.questions = questions;
+	}
+
+	public int getCorrectAnswers() {
+		return correctAnswers;
+	}
+	
 	
 
 	public void loadQuestions(String topic) {
@@ -124,18 +136,5 @@ public class Quiz {
         saveQuizResult();
 
 	}
-
-	public Integer getCurrentQuestionIndex() {
-		return currentQuestionIndex;
-	}
-
-	public void setQuestions(ArrayList<Question> questions) {
-		this.questions = questions;
-	}
-
-	public int getCorrectAnswers() {
-		return correctAnswers;
-	}
-	
 	
 }

@@ -1,4 +1,4 @@
-package statementBasedWBTesting;
+package test.whitebox;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
@@ -34,7 +34,7 @@ public class StatementBasedTests {
     }
 
     
-  
+    //Statement based White-box test
     @Test
     void testEmptyQuizName() {
         String input = "\n";
@@ -45,7 +45,8 @@ public class StatementBasedTests {
         assertTrue(outContent.toString().contains("Input Error: Quiz must have a name!"),
                 "Error message should be displayed for empty quiz name");
     }
-
+    
+    //Statement based White-box test
     @Test
     void testEmptyQuestionText() {
         String input = "Math Quiz\n\n";
@@ -57,6 +58,7 @@ public class StatementBasedTests {
                 "Error message should be displayed for empty question text");
     }
 
+    //Statement based White-box test
     @Test
     void testInvalidNumberOfOptions() {
         String input = "History Quiz\nWho was the first president of the USA?\n5\n2\nDonald Trump\nGeorge Washington\n2\nNo\n";
@@ -68,6 +70,7 @@ public class StatementBasedTests {
                 "Error message should be displayed for invalid number of options");
     }
 
+    //Statement based White-box test
     @Test
     void testMissingOptionText() {
         String input = "Science Quiz\nWhat is H2O?\n2\nWater\n\n";
@@ -79,6 +82,7 @@ public class StatementBasedTests {
                 "Error message should be displayed for empty option text");
     }
 
+    //Statement based White-box test
     @Test
     void testInvalidCorrectAnswer() {
         String input = "Geography Quiz\nWhat is the largest continent?\n3\nAsia\nAfrica\nEurope\n5\n1\nno\n";
@@ -90,6 +94,7 @@ public class StatementBasedTests {
                 "Error message should be displayed for invalid correct answer");
     }
 
+    //Statement based White-box test
     @Test
     void testFileWriteFailure() {
         String input = "imaginaryFolder/Test Quiz\nWhat is 2 + 2?\n2\n1\n2\n1\nno\n";
@@ -103,7 +108,7 @@ public class StatementBasedTests {
     }
 
     
-
+    //Statement based White-box test
     @Test
     void testLoadQuestionsFileNotFound() {
         quiz.loadQuestions("nonexistentQuiz");
@@ -112,7 +117,7 @@ public class StatementBasedTests {
     }
 
 
-
+    //Statement based White-box test
     @Test
     void testEarlyExitFromAddingQuestions() {
         String input = "Quick Quiz\nFirst Question\n2\nYes\nNo\n1\nno\n";
@@ -124,6 +129,7 @@ public class StatementBasedTests {
     }
 
 
+    //Statement based White-box test
     @Test
     void testAllInvalidAnswersBeforeValidInput() {
         String input = "Validation Test\nQuestion\n3\nOption1\nOption2\nOption3\n4\n5\n2\nno\n";
@@ -134,7 +140,7 @@ public class StatementBasedTests {
         assertTrue(outContent.toString().contains("Quiz named Validation Test created"));
     }
 
-
+    //Statement based White-box test
     @Test
     void testQuizResultSaving() {
     	quiz.loadQuestions("waffle");
@@ -150,6 +156,7 @@ public class StatementBasedTests {
         assertTrue(fileContent.toString().contains("Final Score: 1 out of 2"));
     }
     
+    //Statement based White-box test
     @Test
     void testClosingApplication() {
     	String input = "testingQuiz\n1\nN\n";
@@ -160,6 +167,7 @@ public class StatementBasedTests {
     	assertTrue(outContent.toString().contains("Closing application!"));
     }
     
+    //Statement based White-box test
     @Test
     void testMainRun() {
     	String input = "exit\n";

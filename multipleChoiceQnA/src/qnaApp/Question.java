@@ -1,7 +1,7 @@
 package qnaApp;
 
 import java.util.ArrayList;
-import java.util.Collections;
+
 
 public class Question {
 	private String question;
