@@ -10,7 +10,7 @@ public class Question {
 
 	public Question(String question, ArrayList<String> options, int answer) {
 		if (options == null || options.size() > 4) {
-			throw new IllegalArgumentException("Must be between 1 and 4 choices!");
+			throw new IllegalArgumentException("Must be between 2 and 4 choices!");
 		}
 
 		this.question = question;

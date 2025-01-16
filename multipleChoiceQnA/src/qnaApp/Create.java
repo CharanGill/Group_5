@@ -35,7 +35,7 @@ public class Create {
 				int numOfAnswers;
 				
 				while(true) {
-					System.out.print("Enter the number of answers (between 2 - 4) ");
+					System.out.print("Enter the number of answers (between 2 - 4): ");
 					numOfAnswers = Integer.valueOf(scanner.nextLine());
 					
 					if(numOfAnswers >= 2 && numOfAnswers <= 4) {

@@ -201,7 +201,7 @@ public class Specification {
 	public void testSavedQuizResults() throws Exception{
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		
-		String userInput = 	"testingQuiz\n" +
+		String userInput = 	"simpleQuiz\n" +
 							"1\n" +
 							"no";
 		
@@ -229,7 +229,7 @@ public class Specification {
 		// This will be testing the output to terminal rather than to the file
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		
-		String userInput = 	"testingQuiz\n" +
+		String userInput = 	"simpleQuiz\n" +
 							"1\n" +
 							"no";
 		
