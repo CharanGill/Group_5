@@ -15,7 +15,7 @@ public class Create {
 		
 		try {
 			System.out.print("Enter the name of your quiz: ");
-			String quizName = scanner.nextLine();
+			String quizName = scanner.nextLine().trim();
 			
 			if(quizName.isEmpty()) {
 				throw new IllegalArgumentException("Quiz must have a name!");
@@ -35,7 +35,7 @@ public class Create {
 				int numOfAnswers;
 				
 				while(true) {
-					System.out.print("Enter the number of answers (between 2 - 4) ");
+					System.out.print("Enter the number of answers (between 2 - 4): ");
 					numOfAnswers = Integer.valueOf(scanner.nextLine());
 					
 					if(numOfAnswers >= 2 && numOfAnswers <= 4) {
@@ -61,7 +61,7 @@ public class Create {
 				int correctAnswer;
 				
 				while (true) {
-					System.out.print("Enter the correct answer (1 - " + numOfAnswers + "):");
+					System.out.print("Enter the correct answer (1 - " + numOfAnswers + "): ");
 					
 					try {
 						correctAnswer = Integer.valueOf(scanner.nextLine());
@@ -73,7 +73,7 @@ public class Create {
 					}catch(NumberFormatException e) {
 						System.out.println("Input must be of integer type!");
 					}
-					System.out.println("Choose a number from the prvoided options!");
+					System.out.println("Choose a number from the provided options!");
 					
 				}
 				

@@ -1,0 +1,28 @@
+What is the capital of France?
+4
+Paris
+London
+Rome
+Madrid
+1
+How many legs does a spider have?
+3
+7
+8
+10
+2
+What is the largest planet in the Solar System?
+2
+Saturn
+Jupiter
+2
+Who is the god of thunder in the MCU?
+2
+thor
+zeus
+1
+Who created the album thriller?
+2
+Michael Jackson
+Adele
+1

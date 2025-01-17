@@ -15,6 +15,30 @@ public class Quiz {
 	private int correctAnswers = 0;
 	private int totalQuestions = 0;
 
+	
+	
+	public ArrayList<Question> getQuestions() {
+		return questions;
+	}
+	
+	public void setCorrectAnswers(int correctAnswers) {
+		this.correctAnswers = correctAnswers;
+	}
+	
+	public Integer getCurrentQuestionIndex() {
+		return currentQuestionIndex;
+	}
+
+	public void setQuestions(ArrayList<Question> questions) {
+		this.questions = questions;
+	}
+
+	public int getCorrectAnswers() {
+		return correctAnswers;
+	}
+	
+	
+
 	public void loadQuestions(String topic) {
 		try {
 			File myObj = new File("questionBank/" + topic + ".txt");
@@ -112,4 +136,5 @@ public class Quiz {
         saveQuizResult();
 
 	}
+	
 }
