@@ -159,7 +159,7 @@ public class StatementBasedTests {
     //Statement based White-box test
     @Test
     void testClosingApplication() {
-    	String input = "testingQuiz\n1\nN\n";
+    	String input = "waffle\n1\nN\n";
     	System.setIn(new ByteArrayInputStream(input.getBytes()));
     	Main app = new Main();
     	app.attemptQuiz();
@@ -175,6 +175,17 @@ public class StatementBasedTests {
     	Main app = new Main();
     	app.run();
     	assertTrue(outContent.toString().contains("Exiting the program."));
+    }
+    
+    //Statement based White-box test
+    @Test
+    void testRetryingQuiz() {
+    	String input = "testingQuiz\ny\n1\nN\n";
+    	System.setIn(new ByteArrayInputStream(input.getBytes()));
+    	Main app = new Main();
+    	app.attemptQuiz();
+    	
+    	assertTrue(outContent.toString().contains("Restarting Quiz...\n"));
     }
     
     
